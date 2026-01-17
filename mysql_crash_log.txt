@@ -1,0 +1,140 @@
+Jan 09 13:51:09 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:51:09 deilsy mysql-systemd-start[149476]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+Jan 09 13:51:09 deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+Jan 09 13:51:09 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:09 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 1.
+Jan 09 13:51:10 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:51:10 deilsy mysql-systemd-start[149478]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:10 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 2.
+Jan 09 13:51:10 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:51:10 deilsy mysql-systemd-start[149480]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:10 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 3.
+Jan 09 13:51:10 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:51:10 deilsy mysql-systemd-start[149482]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:10 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 4.
+Jan 09 13:51:10 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:51:10 deilsy mysql-systemd-start[149484]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+Jan 09 13:51:10 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:10 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:11 deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 5.
+Jan 09 13:51:11 deilsy systemd[1]: mysql.service: Start request repeated too quickly.
+Jan 09 13:51:11 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:11 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:27 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:51:27 deilsy mysql-systemd-start[149592]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:27 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 1.
+Jan 09 13:51:27 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:51:27 deilsy mysql-systemd-start[149594]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:27 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 2.
+Jan 09 13:51:27 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:51:27 deilsy mysql-systemd-start[149597]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:27 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 3.
+Jan 09 13:51:27 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:51:27 deilsy mysql-systemd-start[149599]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+Jan 09 13:51:27 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:27 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:28 deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 4.
+Jan 09 13:51:28 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:51:28 deilsy mysql-systemd-start[149612]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+Jan 09 13:51:28 deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+Jan 09 13:51:28 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:28 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:51:28 deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 5.
+Jan 09 13:51:28 deilsy systemd[1]: mysql.service: Start request repeated too quickly.
+Jan 09 13:51:28 deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+Jan 09 13:51:28 deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+Jan 09 13:53:45 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 09 13:53:47 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+Jan 09 23:10:59 deilsy systemd[1]: Stopping mysql.service - MySQL Community Server...
+Jan 09 23:11:00 deilsy systemd[1]: mysql.service: Deactivated successfully.
+Jan 09 23:11:00 deilsy systemd[1]: Stopped mysql.service - MySQL Community Server.
+Jan 09 23:11:00 deilsy systemd[1]: mysql.service: Consumed 7min 3.648s CPU time, 397.6M memory peak, 298.1M memory swap peak.
+-- Boot 0919c88b93fb4973bd69376e7f6e50a7 --
+Jan 10 08:52:14 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 10 08:52:15 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+Jan 10 19:33:46 deilsy systemd[1]: Stopping mysql.service - MySQL Community Server...
+Jan 10 19:33:47 deilsy systemd[1]: mysql.service: Deactivated successfully.
+Jan 10 19:33:47 deilsy systemd[1]: Stopped mysql.service - MySQL Community Server.
+Jan 10 19:33:47 deilsy systemd[1]: mysql.service: Consumed 7min 38.252s CPU time.
+-- Boot c41d2b1a3e4b4d6c979ef8497d234b9e --
+Jan 11 18:57:06 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 11 18:57:07 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+Jan 11 21:14:07 deilsy systemd[1]: Stopping mysql.service - MySQL Community Server...
+Jan 11 21:14:08 deilsy systemd[1]: mysql.service: Deactivated successfully.
+Jan 11 21:14:08 deilsy systemd[1]: Stopped mysql.service - MySQL Community Server.
+Jan 11 21:14:08 deilsy systemd[1]: mysql.service: Consumed 1min 41.008s CPU time.
+-- Boot 80d146a2bb0547a38c14fe36b1bc15b0 --
+Jan 12 08:57:31 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 12 08:57:33 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+Jan 12 22:25:27 deilsy systemd[1]: Stopping mysql.service - MySQL Community Server...
+Jan 12 22:25:29 deilsy systemd[1]: mysql.service: Deactivated successfully.
+Jan 12 22:25:29 deilsy systemd[1]: Stopped mysql.service - MySQL Community Server.
+Jan 12 22:25:29 deilsy systemd[1]: mysql.service: Consumed 9min 1.386s CPU time.
+-- Boot afc7a2f479934d57b7a156170263400e --
+Jan 13 09:02:02 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 13 09:02:03 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+Jan 13 17:47:07 deilsy systemd[1]: Stopping mysql.service - MySQL Community Server...
+Jan 13 17:47:09 deilsy systemd[1]: mysql.service: Deactivated successfully.
+Jan 13 17:47:09 deilsy systemd[1]: Stopped mysql.service - MySQL Community Server.
+Jan 13 17:47:09 deilsy systemd[1]: mysql.service: Consumed 3min 17.220s CPU time, 439.1M memory peak, 0B memory swap peak.
+-- Boot 38a160b6b8ea4bc3b31bbb6e8faa7e37 --
+Jan 14 08:55:25 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 14 08:55:26 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+Jan 14 17:32:52 deilsy systemd[1]: Stopping mysql.service - MySQL Community Server...
+Jan 14 17:32:54 deilsy systemd[1]: mysql.service: Deactivated successfully.
+Jan 14 17:32:54 deilsy systemd[1]: Stopped mysql.service - MySQL Community Server.
+Jan 14 17:32:54 deilsy systemd[1]: mysql.service: Consumed 5min 40.272s CPU time, 439.4M memory peak, 0B memory swap peak.
+-- Boot 02343de06007404c9bbd015201224cf1 --
+Jan 14 18:26:15 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 14 18:26:16 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+Jan 14 20:52:31 deilsy systemd[1]: Stopping mysql.service - MySQL Community Server...
+Jan 14 20:52:32 deilsy systemd[1]: mysql.service: Deactivated successfully.
+Jan 14 20:52:32 deilsy systemd[1]: Stopped mysql.service - MySQL Community Server.
+Jan 14 20:52:32 deilsy systemd[1]: mysql.service: Consumed 1min 21.740s CPU time.
+-- Boot e5e9aa4fce414d91bdabf295c85691d0 --
+Jan 15 14:30:29 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 15 14:30:30 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+Jan 15 14:31:51 deilsy systemd[1]: Stopping mysql.service - MySQL Community Server...
+Jan 15 14:31:52 deilsy systemd[1]: mysql.service: Deactivated successfully.
+Jan 15 14:31:52 deilsy systemd[1]: Stopped mysql.service - MySQL Community Server.
+Jan 15 14:31:52 deilsy systemd[1]: mysql.service: Consumed 1.826s CPU time.
+-- Boot e4b8b1d3468a4ddb97ba690fbd8c0f14 --
+Jan 15 14:34:51 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 15 14:34:52 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+Jan 15 23:55:14 deilsy systemd[1]: Stopping mysql.service - MySQL Community Server...
+Jan 15 23:55:15 deilsy systemd[1]: mysql.service: Deactivated successfully.
+Jan 15 23:55:15 deilsy systemd[1]: Stopped mysql.service - MySQL Community Server.
+Jan 15 23:55:15 deilsy systemd[1]: mysql.service: Consumed 6min 39.876s CPU time, 439.8M memory peak, 0B memory swap peak.
+-- Boot 641c945785d5404cb9bf3dc540db2492 --
+Jan 16 11:49:58 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 16 11:49:59 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+Jan 16 22:18:26 deilsy systemd[1]: Stopping mysql.service - MySQL Community Server...
+Jan 16 22:18:28 deilsy systemd[1]: mysql.service: Deactivated successfully.
+Jan 16 22:18:28 deilsy systemd[1]: Stopped mysql.service - MySQL Community Server.
+Jan 16 22:18:28 deilsy systemd[1]: mysql.service: Consumed 7min 23.190s CPU time, 439.8M memory peak, 0B memory swap peak.
+-- Boot fd59502848774349987f3fbd998eb3ab --
+Jan 17 11:00:28 deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+Jan 17 11:00:29 deilsy systemd[1]: Started mysql.service - MySQL Community Server.
+lines 108-138/138 (END)
+
