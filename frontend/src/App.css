@@ -1,0 +1,161 @@
+/* App Specific Styles */
+
+/* Animations */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+}
+
+.message-enter {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.source-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  color: #c084fc;
+  font-weight: 500;
+}
+
+.loading-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.loading-dots span {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+  animation: bounce 1.4s infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+/* Custom Input Styling */
+input[type="text"]::placeholder {
+  color: rgba(148, 163, 184, 0.6);
+}
+
+input[type="file"]::placeholder {
+  color: rgba(148, 163, 184, 0.6);
+}
+
+/* Button Hover Effects */
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+/* Drag and Drop Area */
+.drop-zone {
+  position: relative;
+}
+
+.drop-zone.dragging {
+  animation: pulse 0.5s ease-in-out;
+}
+
+/* Message Styling */
+.message-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Code Block Styling */
+pre {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 3px solid #a855f7;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+code {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  background: rgba(168, 85, 247, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  color: #c084fc;
+}
+
+/* Link Styling */
+a {
+  color: #a855f7;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #d946ef;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .drop-zone {
+    padding: 2rem !important;
+  }
+
+  input[type="text"] {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  button {
+    min-height: 44px; /* Mobile touch target */
+  }
+}

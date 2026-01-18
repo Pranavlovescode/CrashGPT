@@ -11,6 +11,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks, Form
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import requests
@@ -21,6 +22,7 @@ from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.messages import HumanMessage
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, PointStruct, VectorParams
+from langchain_core.documents import Document
 
 # Load environment variables
 load_dotenv()
@@ -34,6 +36,15 @@ app = FastAPI(
     title="CrashGPT - Log Analysis RAG Server",
     description="RAG pipeline for analyzing crash logs",
     version="1.0.0"
+)
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Environment variables
@@ -96,12 +107,12 @@ def setup_collection(collection_name: str) -> int:
     Create a Qdrant collection for storing embeddings.
     Returns the vector size.
     """
-    try:
-        # Try to delete existing collection to start fresh
-        qdrant_client.delete_collection(collection_name)
-        logger.info(f"Deleted existing collection: {collection_name}")
-    except Exception as e:
-        logger.debug(f"Collection {collection_name} doesn't exist or couldn't be deleted: {e}")
+    # try:
+    #     # Try to delete existing collection to start fresh
+    #     qdrant_client.delete_collection(collection_name)
+    #     logger.info(f"Deleted existing collection: {collection_name}")
+    # except Exception as e:
+    #     logger.debug(f"Collection {collection_name} doesn't exist or couldn't be deleted: {e}")
 
     # Get vector size
     vector_size = len(embeddings_model.embed_query("test"))
@@ -115,52 +126,119 @@ def setup_collection(collection_name: str) -> int:
     return vector_size
 
 
+# def process_and_embed_documents(
+#     file_path: str,
+#     collection_name: str,
+#     chunk_size: int = 1000,
+#     chunk_overlap: int = 200
+# ) -> int:
+#     """
+#     Load, split, embed, and store documents in Qdrant.
+#     Returns the number of documents processed.
+#     """
+#     # Load documents
+#     loader = TextLoader(file_path)
+#     documents = loader.load()
+#     logger.info(f"Loaded {len(documents)} documents from {file_path}")
+
+#     # Split documents
+#     text_splitter = RecursiveCharacterTextSplitter(
+#         chunk_size=chunk_size,
+#         chunk_overlap=chunk_overlap
+#     )
+#     split_docs = text_splitter.split_documents(documents)
+#     logger.info(f"Split into {len(split_docs)} chunks")
+
+#     # Embed and create points
+#     points = []
+#     for idx, doc in enumerate(split_docs):
+#         embedding = embeddings_model.embed_query(doc.page_content)
+#         point = PointStruct(
+#             id=idx,
+#             vector=embedding,
+#             payload={
+#                 "content": doc.page_content,
+#                 "metadata": doc.metadata,
+#                 "source": file_path
+#             }
+#         )
+#         points.append(point)
+
+#     # Upsert points in batches
+#     batch_size = 100
+#     for i in range(0, len(points), batch_size):
+#         batch = points[i:i+batch_size]
+#         qdrant_client.upsert(collection_name=collection_name, points=batch)
+    
+#     logger.info(f"Upserted {len(points)} embeddings to collection: {collection_name}")
+#     return len(points)
+
+
+
+
 def process_and_embed_documents(
     file_path: str,
     collection_name: str,
-    chunk_size: int = 1000,
+    chunk_size: int = 5000,
     chunk_overlap: int = 200
 ) -> int:
-    """
-    Load, split, embed, and store documents in Qdrant.
-    Returns the number of documents processed.
-    """
-    # Load documents
-    loader = TextLoader(file_path)
-    documents = loader.load()
-    logger.info(f"Loaded {len(documents)} documents from {file_path}")
+
+    # 🔐 SAFE file loading (cannot crash on encoding)
+    with open(file_path, "rb") as f:
+        text = f.read().decode("utf-8", errors="ignore")
+
+    if not text.strip():
+        raise ValueError("Log file is empty after decoding")
+
+    documents = [
+        Document(
+            page_content=text,
+            metadata={"source": file_path}
+        )
+    ]
+
+    logger.info(f"Loaded document from {file_path}")
 
     # Split documents
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap
     )
-    split_docs = text_splitter.split_documents(documents)
+    split_docs = [
+        doc for doc in text_splitter.split_documents(documents)
+        if doc.page_content.strip()
+    ]
+
     logger.info(f"Split into {len(split_docs)} chunks")
 
-    # Embed and create points
+    # Embed + store
     points = []
     for idx, doc in enumerate(split_docs):
         embedding = embeddings_model.embed_query(doc.page_content)
-        point = PointStruct(
-            id=idx,
-            vector=embedding,
-            payload={
-                "content": doc.page_content,
-                "metadata": doc.metadata,
-                "source": file_path
-            }
-        )
-        points.append(point)
 
-    # Upsert points in batches
+        points.append(
+            PointStruct(
+                id=idx,
+                vector=embedding,
+                payload={
+                    "content": doc.page_content,
+                    "metadata": doc.metadata,
+                    "source": file_path
+                }
+            )
+        )
+
+    # Batch upsert
     batch_size = 100
     for i in range(0, len(points), batch_size):
-        batch = points[i:i+batch_size]
-        qdrant_client.upsert(collection_name=collection_name, points=batch)
-    
-    logger.info(f"Upserted {len(points)} embeddings to collection: {collection_name}")
+        qdrant_client.upsert(
+            collection_name=collection_name,
+            points=points[i:i + batch_size]
+        )
+
+    logger.info(f"Upserted {len(points)} embeddings to {collection_name}")
     return len(points)
+
 
 
 def retrieve_context(query_text: str, collection_name: str, limit: int = 6) -> list[dict]:
@@ -202,45 +280,77 @@ def generate_answer(query_text: str, context_docs: list[dict]) -> str:
     # Combine context
     context = "\n\n---\n\n".join([doc["content"] for doc in context_docs])
 
-    prompt = f"""You are a Site Reliability Engineer analyzing system crash logs.
+    prompt = f"""
+    
+You are an experienced Site Reliability Engineer (SRE) analyzing system logs.
 
-TASK: Analyze the provided logs to answer the user's question.
+Your task is to answer the user's question STRICTLY using the provided log excerpts.
+Do NOT use outside knowledge or assumptions.
 
-RULES:
-1. Extract and report what IS explicitly stated in the logs
-2. Identify patterns, timestamps, error codes, and repeated messages
-3. For any part you cannot answer from the logs, explicitly state: "Not specified in logs"
-4. Be precise and literal - quote exact error messages when relevant
+====================
+ANALYSIS RULES
+====================
+1. Use ONLY the information explicitly present in the logs.
+2. Do NOT infer causes unless the logs directly state them.
+3. If information is missing, clearly state: "Not specified in logs".
+4. Quote exact log lines when making claims.
+5. Preserve original timestamps, service names, and error messages.
+6. Treat logs as chronological unless timestamps indicate otherwise.
+7. Do NOT hallucinate configuration values, versions, or environments.
 
-Logs:
+====================
+LOG CONTEXT (RAG RETRIEVAL)
+====================
 {context}
 
-Question: {query_text}
+====================
+USER QUESTION
+====================
+{query_text}
 
-PROVIDE YOUR ANSWER IN THIS FORMAT:
+====================
+REQUIRED OUTPUT FORMAT
+====================
 
-**Observations from Logs:**
-- What events occurred (timestamp, service names, error codes)
-- Patterns and repetitions
-- Key error messages
+**Observations from Logs**
+- Chronological events with timestamps
+- Services, processes, or components involved
+- Repeated patterns or anomalies
+- Exact error or warning messages
 
-**Root Cause:**
-- What the logs explicitly state as the problem
-- If not specified: "Not specified in logs"
+**Timeline (If timestamps exist)**
+- Ordered sequence of key events
+- Correlation between events if visible
+- If unclear: "Timeline not clearly specified in logs"
 
-**Evidence:**
-- Exact log lines that support this analysis
-- Line timestamps and full error messages
+**Root Cause**
+- Explicitly stated cause from logs
+- If not explicitly stated: "Not specified in logs"
 
-**Recommended Actions:**
-- Based on what the logs suggest
-- If no clear solution in logs: "Check /etc/mysql/FROZEN or relevant error file mentioned in logs"
+**Evidence**
+- Quoted log lines supporting observations and root cause
+- Include timestamps and full messages
 
-**Prevention:**
-- Strategies based on log patterns
-- If insufficient: "Not specified in logs"
+**Impact**
+- What systems or services were affected (from logs only)
+- If not mentioned: "Not specified in logs"
 
----"""
+**Recommended Actions**
+- Actions directly suggested or implied by the logs
+- If none: "Not specified in logs"
+
+**Prevention**
+- Preventive steps inferred ONLY if patterns are visible
+- Otherwise: "Not specified in logs"
+
+====================
+IMPORTANT
+====================
+If the logs do not contain enough information to answer the question,
+explicitly state that the logs are insufficient and explain what is missing.
+
+
+"""
 
     message = HumanMessage(content=prompt)
     response = llm.invoke([message])
@@ -259,52 +369,93 @@ async def health_check():
     }
 
 
+# @app.post("/upload", response_model=UploadResponse)
+# async def upload_log(
+#     file: UploadFile = File(...),
+#     collection_name: str = Form("mysql_crash_analysis"),
+#     background_tasks: BackgroundTasks = None
+# ):
+#     """
+#     Upload a log file and process it for RAG.
+    
+#     Args:
+#         file: The log file to upload
+#         collection_name: Name of the Qdrant collection to store embeddings
+    
+#     Returns:
+#         UploadResponse with processing status
+#     """
+#     try:
+#         # Validate file
+#         if not file.filename:
+#             raise HTTPException(status_code=400, detail="Invalid filename")
+
+#         # Save uploaded file
+#         file_path = UPLOAD_DIR / file.filename
+#         content = await file.read()
+        
+#         with open(file_path, "wb") as f:
+#             f.write(content)
+        
+#         logger.info(f"Saved uploaded file: {file_path}")
+
+#         # Setup collection
+#         setup_collection(collection_name)
+
+#         # Process documents (can be moved to background task for large files)
+#         doc_count = process_and_embed_documents(str(file_path), collection_name)
+
+#         return UploadResponse(
+#             filename=file.filename,
+#             collection_name=collection_name,
+#             status="success",
+#             message=f"Successfully processed {doc_count} document chunks"
+#         )
+
+#     except Exception as e:
+#         logger.error(f"Error uploading file: {str(e)}")
+#         raise HTTPException(status_code=500, detail=f"Error processing file: {str(e)}")
+
+
 @app.post("/upload", response_model=UploadResponse)
 async def upload_log(
     file: UploadFile = File(...),
-    collection_name: str = Form("mysql_crash_analysis"),
     background_tasks: BackgroundTasks = None
 ):
-    """
-    Upload a log file and process it for RAG.
-    
-    Args:
-        file: The log file to upload
-        collection_name: Name of the Qdrant collection to store embeddings
-    
-    Returns:
-        UploadResponse with processing status
-    """
     try:
-        # Validate file
         if not file.filename:
             raise HTTPException(status_code=400, detail="Invalid filename")
 
-        # Save uploaded file
         file_path = UPLOAD_DIR / file.filename
-        content = await file.read()
-        
+
+        # Stream save (safe for large files)
         with open(file_path, "wb") as f:
-            f.write(content)
-        
+            while chunk := await file.read(1024 * 1024):
+                f.write(chunk)
+
         logger.info(f"Saved uploaded file: {file_path}")
 
-        # Setup collection
-        setup_collection(collection_name)
+        setup_collection(file.filename)
 
-        # Process documents (can be moved to background task for large files)
-        doc_count = process_and_embed_documents(str(file_path), collection_name)
+        # Process file
+        doc_count = process_and_embed_documents(
+            file_path=str(file_path),
+            collection_name=file.filename
+        )
 
         return UploadResponse(
             filename=file.filename,
-            collection_name=collection_name,
+            collection_name=file.filename,
             status="success",
             message=f"Successfully processed {doc_count} document chunks"
         )
 
     except Exception as e:
-        logger.error(f"Error uploading file: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Error processing file: {str(e)}")
+        logger.exception("Error uploading file")  # 🔥 KEEP THIS
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error processing file: {str(e)}"
+        )
 
 
 @app.post("/query", response_model=QueryResponse)
