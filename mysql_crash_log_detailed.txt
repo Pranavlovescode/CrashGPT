@@ -1,0 +1,50 @@
+2024-01-09T13:50:00.000Z mysqld[1234]: InnoDB: Initializing buffer pool, size = 128.0M
+2024-01-09T13:50:05.000Z mysqld[1234]: InnoDB: buffer pool size = 128M
+2024-01-09T13:50:08.000Z mysqld[1234]: InnoDB: Log file ./ib_logfile0 did not exist: new to be created
+2024-01-09T13:50:08.000Z mysqld[1234]: InnoDB: Setting log file ./ib_logfile0 size to 48M
+2024-01-09T13:50:09.000Z mysqld[1234]: InnoDB: Database physically writes the file full: wait...
+2024-01-09T13:50:10.000Z mysqld[1234]: InnoDB: 100MB written. Flushing ... done
+2024-01-09T13:50:12.000Z mysqld[1234]: InnoDB: Starting an apply batch of log records
+2024-01-09T13:50:15.000Z mysqld[1234]: InnoDB: Crash recovery finished. Log contains 842 pages; approx. 12 MB
+2024-01-09T13:50:18.000Z mysqld[1234]: InnoDB: Doublewrite buffer not found: creating new
+2024-01-09T13:50:20.000Z mysqld[1234]: Server startup in progress
+2024-01-09T13:50:22.000Z mysqld[1234]: Ready for connections.
+2024-01-09T13:50:35.000Z root: Starting routine backup job...
+2024-01-09T13:50:45.000Z mysqld[1234]: [Warning] InnoDB: Cannot find a free slot for an OS thread to attach the lock file signaling that the instance of InnoDB is using this datadir. Since the datadir is already in use, InnoDB will now start without locking. Only one instance of InnoDB is allowed to use a datadir, otherwise it could result in severe data corruption.
+2024-01-09T13:50:50.000Z mysqld[1234]: [ERROR] mysqld: Out of memory (Needed 16777216 bytes)
+2024-01-09T13:50:51.000Z mysqld[1234]: ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+2024-01-09T13:50:52.000Z deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+2024-01-09T13:50:52.000Z deilsy mysql-systemd-start[149476]: MySQL data directory (/var/lib/mysql) is not empty: not creating a fresh database
+2024-01-09T13:50:53.000Z deilsy mysql-systemd-start[149476]: Initializing MySQL database from /var/lib/mysql
+2024-01-09T13:50:54.000Z mysqld[1234]: [ERROR] Can't create test file /var/lib/mysql/deilsy.lower-test: Permission denied
+2024-01-09T13:50:55.000Z mysqld[1234]: [Note] Event Scheduler: Loaded 0 events
+2024-01-09T13:50:56.000Z mysqld[1234]: InnoDB: Attempting to recover from corruption...
+2024-01-09T13:50:57.000Z mysqld[1234]: [ERROR] InnoDB: Tablespace size stored in header is 640 pages, but the sum of page sizes of all the relevant files is 512 pages!
+2024-01-09T13:50:58.000Z mysqld[1234]: [ERROR] InnoDB: Cannot start InnoDB. Corrupted double write buffer.
+2024-01-09T13:50:59.000Z mysqld[1234]: [ERROR] Plugin 'InnoDB' init function returned error.
+2024-01-09T13:50:59.000Z mysqld[1234]: [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2024-01-09T13:51:00.000Z mysqld[1234]: [ERROR] Unknown/unsupported storage engine: InnoDB
+2024-01-09T13:51:01.000Z mysqld[1234]: Aborting
+2024-01-09T13:51:02.000Z mysqld[1234]: InnoDB: A fatal error occured - check the error messages above.
+2024-01-09T13:51:03.000Z mysqld[1234]: 240109 13:51:03 mysqld_safe mysqld from pid file /var/run/mysqld/mysqld.pid ended
+2024-01-09T13:51:04.000Z deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+2024-01-09T13:51:04.000Z deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+2024-01-09T13:51:04.000Z deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+2024-01-09T13:51:05.000Z deilsy systemd[1]: mysql.service: Scheduled restart job, restart counter is at 1.
+2024-01-09T13:51:05.000Z deilsy systemd[1]: Starting mysql.service - MySQL Community Server...
+2024-01-09T13:51:06.000Z deilsy mysql-systemd-start[149478]: MySQL data directory (/var/lib/mysql) is not empty: not creating a fresh database
+2024-01-09T13:51:07.000Z mysqld[1324]: [ERROR] InnoDB: Missing MLOG_CHECKPOINT records. The database had not been shut down cleanly!
+2024-01-09T13:51:08.000Z mysqld[1324]: [ERROR] InnoDB: Trying to recover from corruption...
+2024-01-09T13:51:09.000Z mysqld[1324]: [ERROR] InnoDB: Crashed after redo log record for byte offset 0x123456
+2024-01-09T13:51:10.000Z mysqld[1324]: [ERROR] InnoDB: Not reading redo log at recovery, assumed corrupted
+2024-01-09T13:51:11.000Z mysqld[1324]: [ERROR] InnoDB: Database page corruption detected!
+2024-01-09T13:51:12.000Z mysqld[1324]: [FATAL] InnoDB: Cannot recover from corruption. Halting.
+2024-01-09T13:51:13.000Z deilsy mysql-systemd-start[149478]: MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help.
+2024-01-09T13:51:13.000Z deilsy systemd[1]: mysql.service: Control process exited, code=exited, status=1/FAILURE
+2024-01-09T13:51:13.000Z deilsy systemd[1]: mysql.service: Failed with result 'exit-code'.
+2024-01-09T13:51:13.000Z deilsy systemd[1]: Failed to start mysql.service - MySQL Community Server.
+2024-01-09T13:51:14.000Z root: ERROR: Backup job failed - cannot connect to MySQL
+2024-01-09T13:51:14.000Z root: ALERT: Database service is down. Attempting emergency recovery...
+2024-01-09T13:51:15.000Z kernel: Memory pressure: 95%, available: 256MB/4GB
+2024-01-09T13:51:16.000Z kernel: OOM killer invoked. Terminating MySQL process.
+2024-01-09T13:51:17.000Z mysqld[1324]: [Note] /usr/sbin/mysqld: Shutdown complete
